@@ -42,8 +42,8 @@ public class WebScrape {
         for (Element elementUnderMainDiv : allElementsUnderMainDiv) {
             String elementText = elementUnderMainDiv.text();
             for (Map.Entry<String, Integer> targetWordToCount : wordsMap.entrySet()) {
-                boolean comapareWord = elementText.toLowerCase().contains(targetWordToCount.getKey().toLowerCase());
-                if (comapareWord) {
+                boolean compareWord = elementText.toLowerCase().contains(targetWordToCount.getKey().toLowerCase());
+                if (compareWord) {
                     Integer oldCount = targetWordToCount.getValue();
                     Integer newCount = oldCount + 1;
                     wordsMap.put(targetWordToCount.getKey(), newCount);
@@ -51,6 +51,8 @@ public class WebScrape {
             }
         }
         System.out.println(wordsMap);
+
+
 
         TreeSet<ResultDto> sortedResultByCount = new TreeSet(compareResultByCount);
         for (Map.Entry<String, Integer> integerEntry : wordsMap.entrySet()) {
@@ -62,17 +64,13 @@ public class WebScrape {
         TreeSet<String> links = new TreeSet<String>();
         Elements elements = page.select("a[href]");
         for (Element refElements : elements) {
-            links.add(refElements.attr("href"));
+            links.add(refElements.attr("abs:href"));
 
 
         }
         System.out.println(links.size());
-
+        System.out.println(links);
     }
-
-
-
-
 }
 
 
